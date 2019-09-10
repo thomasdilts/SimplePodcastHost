@@ -23,7 +23,7 @@ These files must be in the subdirectory 'upload'.
 This script will not work if you don't fullfill this requirement and inlcude both files.
 2. You should have a 'title' inside of your sound mp3 file. If you don't then the title will be the name of the file.
 You can use the free program ffmpeg and the parameter -metadata title="Sound Track Title"  to add a title to 
-your sound mp3 file. 
+your sound mp3 file. Adding 'artist' is a good idea as well.
 3. This will sort the files descending by file name so it is recommended that you have a sortable date as the file name. For instance 
 20191221.mp3 and 20191221.jpg.  Or perhaps 191221.mp3 and 191221.jpg. Otherwise you need to go into the code and change the sorting to something else. For instance, file-date could be something good to sort on instead.
 
