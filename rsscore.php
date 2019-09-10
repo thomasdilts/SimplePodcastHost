@@ -36,7 +36,7 @@ $channel_owner_name='Pingstkyrkan Eskilstuna';
 $channel_owner_email='info@pingsteskilstuna.se';
 // link to channel image. Minimum size of 1400 x 1400 pixels and a maximum size of 3000 x 3000 pixels, 72 dpi, 
 // in JPEG or PNG format with appropriate file extensions (.jpg, .png), and in the RGB colorspace
-$channel_image=$base_url . '/pingstkyrkan.jpg';
+$channel_image=getFullHostCore() . '/pingstkyrkan.jpg';
 // I assume this is ALWAYS 'no'. Used for both channel and mp3 file.
 $channel_itunes_explicit='no';
 // this MUST be a valid itunes category in xml format. This is used for both the channel and the mp3 files.
