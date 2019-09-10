@@ -1,5 +1,6 @@
 # SimplePodcastHost
-This is a simple php podcast host that fulfills all the needs for podcasting and uses NO database. 
+This is a simple php podcast host that fulfills all the needs for podcasting and uses NO database. Simplicity is very important
+if you decide to specialize the code for your specific use. Most programmers give up at the prospect of changing a very complex program.
 The only difference between this podcasting host and the many other hosts that cost a lot of money is:
 
 1. Analytics. No traffic analysis in this project. However you should have some sort of website analysis on your server anyway that can do the traffic analysis job. 
