@@ -40,3 +40,10 @@ If you wish to install with Composer then the command is:
 ```txt
 composer create-project thomasdilts/simplepodcasthost
 ```
+
+# Special thanks to
+
+This project has heavily borrowed from other projects. Particularly:
+
+1. https://github.com/JamesHeinrich/getID3
+2. https://github.com/aaronsnoswell/itunes-podcast-feed
