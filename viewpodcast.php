@@ -7,7 +7,7 @@
 $websiteTitle="Pingstkyrkan Eskilstuna podcast";
 $otherPodcastsTitle="Andra Pingstkyrkan Eskilstuna podcast";
 $descriptionForAllFiles="Predikan från Pingstkyrkan Eskilstuna";
-$listen_InLocalLanguage="Listna";
+$listen_InLocalLanguage="Lyssna";
 
 /* 
  * End of parameters you need to change. 
@@ -185,7 +185,7 @@ function getFullHost()
 						<p><?=$description?></p>
 					</div>	
 					<button class="listenbutton" type="button" 
-					onclick="getElementById('abc<?=$i?>').setAttribute('src', '<?=$enclosure?>');getElementById('cba<?=$i?>').style.display = 'inline';getElementById('cba<?=$i?>').load();this.style.display = 'none';">
+					onclick="getElementById('abc<?=$i?>').setAttribute('src', '<?=$enclosure?>');getElementById('cba<?=$i?>').style.display = 'inline';getElementById('cba<?=$i?>').load();getElementById('cba<?=$i?>').play();this.style.display = 'none';">
 					<?=$listen_InLocalLanguage?></button>
 					<div style="display:block">
 						<audio id="cba<?=$i?>" class="audiocontrol" controls='controls'>
