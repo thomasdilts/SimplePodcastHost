@@ -47,7 +47,7 @@ composer create-project thomasdilts/simplepodcasthost
 ## Post installation
 
 After doing one of the installs, this will work immediately with 2 sample files that are already in the "upload" directory.
-You will probably want to change the file "fav.ico" because it is not what most people want for an icon.
+You will probably want to change the file "fav.ico" because it is not what most people want for an icon. At the top of each php file is a list of varibles that you will want to change the values to.
 
 # Special thanks to
 
