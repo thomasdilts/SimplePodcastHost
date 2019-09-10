@@ -30,7 +30,7 @@ your sound mp3 file.
 
 This is probably the easiest way to install for most people.
 
-1. Download the latest version zip file found at  https://github.com/thomasdilts/WorshipHHN/releases
+1. Download the latest version zip file found at https://github.com/thomasdilts/SimplePodcastHost/releases
 2. Install all the files found in the zip file onto your server.
 
 ## Composer installation
