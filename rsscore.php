@@ -104,6 +104,7 @@ echo '<?xml version="1.0" encoding="utf-8" ?>';
 <?php
 		$directory = opendir($files_dir) or die($php_errormsg);
         // Step through file directory
+		$allFiles=array();
         while(false !== ($file = readdir($directory))) {
             $file_path = $files_dir . $file;
 
@@ -130,28 +131,35 @@ echo '<?xml version="1.0" encoding="utf-8" ?>';
 							: $mp3_default_author;
                     $file_duration = $id3_info["playtime_string"];
                 }
-        ?>		
+				$allFiles[$file_url]=array('title' => $file_title,'fileUrl' => $file_url,'author' => $file_author,
+					'itunesCategory' => $itunes_category,'category' => $category_general,'duration' => $file_duration,
+					'description' => $file_description,'date' => $file_date,'size' => $file_size,'image' => $feed_image,
+					'explicit' => $channel_itunes_explicit);
+			}
+		}
+		krsort($allFiles);
+		foreach($allFiles as $key=>$item){
+	?>		
         <item>
-            <title><?= $file_title; ?></title>
-            <link><?= $file_url; ?></link>
+            <title><?= $item['title'] ?></title>
+            <link><?= $item['fileUrl'] ?></link>
             
-            <itunes:author><?=$file_author?></itunes:author>
-			<?=$itunes_category?>
-            <category><?=$category_general?></category>
-            <duration><?= $file_duration; ?></duration>
+            <itunes:author><?=$item['author']?></itunes:author>
+			<?=$item['itunesCategory']?>
+            <category><?=$item['category']?></category>
+            <duration><?= $item['duration'] ?></duration>
             
-            <description><?= $file_description; ?></description>
-            <pubDate><?= $file_date; ?></pubDate>
+            <description><?= $item['description'] ?></description>
+            <pubDate><?= $item['date'] ?></pubDate>
 
-            <enclosure url="<?= $file_url; ?>" length="<?= $file_size; ?>" type="audio/mpeg" />
-            <guid><?= $file_url; ?></guid>
-            <author><?= $file_author; ?></author>
-            <itunes:image href="<?= $feed_image; ?>"/>
-			<itunes:duration><?= $file_duration; ?></itunes:duration>
-			<itunes:explicit><?= $channel_itunes_explicit; ?></itunes:explicit>
+            <enclosure url="<?= $item['fileUrl'] ?>" length="<?= $item['size'] ?>" type="audio/mpeg" />
+            <guid><?= $item['fileUrl'] ?></guid>
+            <author><?= $item['author'] ?></author>
+            <itunes:image href="<?= $item['image'] ?>"/>
+			<itunes:duration><?= $item['duration'] ?></itunes:duration>
+			<itunes:explicit><?= $item['explicit'] ?></itunes:explicit>
         </item>
         <?php
-            }
         }
         closedir($files_dir);
         ?>		
