@@ -1,0 +1,21 @@
+{
+    "name": "thomasdilts/simplepodcasthost",
+    "description": "This is a simple php podcast host that fulfills all the needs for podcasting.",
+    "keywords": ["podcast", "podcasting", "podcasting host"],
+    "homepage": "https://github.com/thomasdilts/SimplePodcastHost",
+    "type": "project",
+    "license": "GPL-3.0-or-later",
+    "support": {
+        "issues": "https://github.com/thomasdilts/SimplePodcastHost/issues?state=open",
+        "wiki": "https://github.com/thomasdilts/SimplePodcastHost/wiki",
+        "source": "https://github.com/thomasdilts/SimplePodcastHost"
+    },
+    "minimum-stability": "stable",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
+    "prefer-stable": true
+}
