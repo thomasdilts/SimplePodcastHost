@@ -11,6 +11,8 @@ The only difference between this podcasting host and the many other hosts that c
 1. An rss feed that is an xml formatted file that is submitable to itunes for podcasts. Example: http://pingsteskilstunaweb.se/podcast/rss.php
 2. An all devices friendly webpage that has an index of all your podcasts. Example: http://pingsteskilstunaweb.se/podcast/
 3. An all devices friendly webpage that shows just one specific podcast at the top and then the list of all the other podcasts. This is very important for publishing just one podcast to websites like Facebook. Example: http://pingsteskilstunaweb.se/podcast/viewpodcast.php?podcast=190908
+4. An upload php file that allows you to upload files to the server with a script. Included is a powershell script that you
+can put on your windows desktop to do the uploading. For many this will probably not be so useful but for me I use it everytime.
 
 # Requirements
 Since this code is written to be as simple as possible, there are a few perhaps irritating requirements to fulfill:
@@ -41,6 +43,11 @@ If you wish to install with Composer then the command is:
 ```txt
 composer create-project thomasdilts/simplepodcasthost
 ```
+
+## Post installation
+
+After doing one of the installs, this will work immediately with 2 sample files that are already in the "upload" directory.
+You will probably want to change the file "fav.ico" because it is not what most people want for an icon.
 
 # Special thanks to
 
