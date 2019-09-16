@@ -3,7 +3,7 @@ This is a simple php podcast host that fulfills all the needs for podcasting and
 if you decide to specialize the code for your specific use. Most programmers give up at the prospect of changing a very complex program.
 The only difference between this podcasting host and the many other hosts that cost a lot of money is:
 
-1. Analytics. No traffic analysis in this project. However you should have some sort of website analysis on your server anyway that can do the traffic analysis job. 
+1. Analytics. This has very simple statistics. Only the number of hits on a recording. However you should have some sort of website analysis on your server anyway that can compliment the traffic analysis job. 
 2. Advertising/apps.  You don't get any special advertising or apps with your podcast in this server. However, All the pages in this program are mobile phone friendly so it works in all devices. For advertising, you should register your rss feed with itunes anyway and there you get all the advertising you need. That is your feed will be searchable in almost all podcast apps.
 
 # What you get

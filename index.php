@@ -1,5 +1,11 @@
 <?php
 /**
+ * If this is called with the arguement "showstats" then statistics will be shown for each file.
+ *
+ *
+ */
+ 
+/**
  * Parameters you need to change
  *
  *
@@ -8,6 +14,7 @@
 $websiteTitle="Pingstkyrkan Eskilstuna podcast";
 $descriptionForAllFiles="Predikan från Pingstkyrkan Eskilstuna";
 $listen_InLocalLanguage="Lyssna";
+$hits_InLocalLanguage="Visningar";
 
 /* 
  * End of parameters you need to change. 
@@ -15,7 +22,20 @@ $listen_InLocalLanguage="Lyssna";
  * There should be no need to change below this line 
  */
 
-
+function getFileStats($files_dir,$filename){
+	$statsFile = $files_dir.$filename.'.stats';
+	$stats = 0;
+	if(file_exists($statsFile)){
+		try {
+			$stats=unserialize(file_get_contents($statsFile));
+		} catch (\Throwable $e) { // For PHP 7
+			$stats=0;
+		} catch (\Exception $e) { // For PHP 5
+			$stats=0;
+		}
+	}	
+	return $stats;
+}
 function getFullHost()
 {
     $protocole = $_SERVER['REQUEST_SCHEME'].'://';
@@ -26,11 +46,13 @@ function getFullHost()
     $path = implode('/', $project);
     return $protocole . $host . $path;
 }
+	$showstats=array_key_exists ('showstats',$_REQUEST);
 	$rss = new DOMDocument();
     $protocole = $_SERVER['REQUEST_SCHEME'].'://';
     $host = $_SERVER['HTTP_HOST'] . '/';
     $project = explode('/', $_SERVER['REQUEST_URI'])[1];
 	$base_url = getFullHost();
+	$files_dir = getcwd().'/upload/';
 
 	$myfile=require('rsscore.php');
 	$rss->loadXml($myfile );
@@ -40,6 +62,7 @@ function getFullHost()
 		$imgObj = $node->getElementsByTagNameNS("http://www.itunes.com/dtds/podcast-1.0.dtd", "image")->item(0);
 		$image=$imgObj?$imgObj->getAttribute('href'):'';
 		$link=$node->getElementsByTagName('link')->item(0)->nodeValue;
+		$filename=explode('=',$link)[1];
 		$item = array ( 
 			'title' => $node->getElementsByTagName('title')->item(0)->nodeValue,
 			'desc' => $node->getElementsByTagName('description')->item(0)->nodeValue,
@@ -48,7 +71,7 @@ function getFullHost()
 			'enclosure' => $node->getElementsByTagName('enclosure')->item(0)->getAttribute('url'),
 			'image' => $image,
 			);
-		$feed[$link]=$item;
+		$feed[$filename]=$item;
 	}
 	header('Content-Type: text/html; charset=utf-8');
 	?>
@@ -149,7 +172,7 @@ function getFullHost()
 				<div style="flex-grow:1">
 					<div class="descriptionbox">
 						<p><strong><?=$title?></strong></p>
-						<p><?=$description?></p>
+						<p><span style="font-size:0.75em"><?=$hits_InLocalLanguage.' '.getFileStats($files_dir,$key). '. ' ?></span><?=$description?></p>
 					</div>	
 					<button class="listenbutton" type="button" 
 					onclick="getElementById('abc<?=$i?>').setAttribute('src', '<?=$enclosure?>');getElementById('cba<?=$i?>').style.display = 'inline';getElementById('cba<?=$i?>').load();getElementById('cba<?=$i?>').play();this.style.display = 'none';">

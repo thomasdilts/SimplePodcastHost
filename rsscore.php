@@ -71,7 +71,7 @@ function getFullHostCore()
 	$base_url = getFullHostCore();
 $files_dir = getcwd().'/upload/';
 
-$files_url = $base_url.'/upload/';
+$files_url = $base_url.'/stats.php?filename=';
 // Location of getid3 folder, leave blank to disable. TRAILING SLASH REQ'D.
 $getid3_dir = "getid3/";
 
