@@ -1,10 +1,5 @@
 <?php
-/**
- * If this is called with the arguement "showstats" then statistics will be shown for each file.
- *
- *
- */
- 
+
 /**
  * Parameters you need to change
  *
@@ -46,7 +41,6 @@ function getFullHost()
     $path = implode('/', $project);
     return $protocole . $host . $path;
 }
-	$showstats=array_key_exists ('showstats',$_REQUEST);
 	$rss = new DOMDocument();
     $protocole = $_SERVER['REQUEST_SCHEME'].'://';
     $host = $_SERVER['HTTP_HOST'] . '/';
