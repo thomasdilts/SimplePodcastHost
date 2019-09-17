@@ -3,7 +3,7 @@ This is a simple php podcast host that fulfills all the needs for podcasting and
 if you decide to specialize the code for your specific use. Most programmers give up at the prospect of changing a very complex program.
 The only difference between this podcasting host and the many other hosts that cost a lot of money is:
 
-1. Analytics. This has very simple statistics. Only the number of hits on a recording. However you should have some sort of website analysis on your server anyway that can compliment the traffic analysis job. 
+1. Analytics. This has rather advanced statistics. You should anyway have some sort of website analysis on your server that can compliment the traffic analysis job. 
 2. Advertising/apps.  You don't get any special advertising or apps with your podcast in this server. However, All the pages in this program are mobile phone friendly so it works in all devices. For advertising, you should register your rss feed with itunes anyway and there you get all the advertising you need. That is your feed will be searchable in almost all podcast apps.
 
 # What you get
@@ -12,7 +12,8 @@ The only difference between this podcasting host and the many other hosts that c
 2. An all devices friendly webpage that has an index of all your podcasts. Example: http://pingsteskilstunaweb.se/podcast/
 3. An all devices friendly webpage that shows just one specific podcast at the top and then the list of all the other podcasts. This is very important for publishing just one podcast to websites like Facebook. Example: http://pingsteskilstunaweb.se/podcast/viewpodcast.php?podcast=190908
 4. An all devices friendly webpage for embedding. It is only slightly different then index but it looks much better than the index when you embed it inside of an iframe.
-5. An upload php file that allows you to upload files to the server with a script. Included is a powershell script 'UploadFilesToServer.ps1' that you
+5. A log analyzer webpage that gives basic statistics about traffic listening to your podcasts. Example: http://pingsteskilstunaweb.se/podcast/loganalyzer.php
+6. An upload php file that allows you to upload files to the server with a script. Included is a powershell script 'UploadFilesToServer.ps1' that you
 can put on your windows desktop to do the uploading. For many this will probably not be so useful but for me I use it everytime.
 
 # Requirements
