@@ -72,6 +72,7 @@ function getFullHostCore()
 $files_dir = getcwd().'/upload/';
 
 $files_url = $base_url.'/stats.php?filename=';
+$jpg_files_url = $base_url.'/upload/';
 // Location of getid3 folder, leave blank to disable. TRAILING SLASH REQ'D.
 $getid3_dir = "getid3/";
 
@@ -116,7 +117,7 @@ echo '<?xml version="1.0" encoding="utf-8" ?>';
                 $file_description = $mp3_description;
                 $file_date = date(DateTime::RFC2822, filemtime($file_path));
                 $file_size = filesize($file_path);
-				$feed_image = substr($file_url,0,strlen($file_url)-4) . '.jpg';
+				$feed_image = substr($jpg_files_url.$file,0,strlen($jpg_files_url.$file)-4) . '.jpg';
 				$file_author =$mp3_default_author;
                 // Read file metadata from the ID3 tags
                 if(!is_null($getid3_engine)) {

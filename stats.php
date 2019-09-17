@@ -16,10 +16,13 @@ function getFullHost()
     $path = implode('/', $project);
     return $protocole . $host . $path;
 }	
+	// if the requested file does not exist just exit.
 	if(!array_key_exists ('filename',$_REQUEST) || !file_exists(getcwd().'/upload/'.$_REQUEST['filename'])){
 		echo 'file does not exist. '. $base_url.'/upload/'.$_REQUEST['filename'];
 		return;
 	}
+	
+	// update the file statistics
 	$statsFile = getcwd().'/upload/'.$_REQUEST['filename'].'.stats';
 	$stats = 0;
 	if(file_exists($statsFile)){
@@ -33,7 +36,17 @@ function getFullHost()
 	}
 	$stats++;
 	file_put_contents($statsFile, serialize($stats));
-
+	
+	// logging of who called and when
+	$calling_url=array_key_exists ('REMOTE_ADDR',$_SERVER)? $_SERVER["REMOTE_ADDR"]:'';
+	$refering_url=array_key_exists ('HTTP_REFERER',$_SERVER)? $_SERVER["HTTP_REFERER"]:'';
+	if(!file_exists(getcwd().'/logs')){
+		mkdir(getcwd().'/logs');
+	}
+	$log=date('H:i:s') . ','. $_REQUEST['filename']. ','. $calling_url. ','. $refering_url."\r\n";
+	file_put_contents(getcwd().'/logs/'.date("Ymd").'.log', $log, FILE_APPEND);
+	
+	// redirect to the correct sound file
 	$base_url = getFullHost();
 	
 	header("Location: ". $base_url.'/upload/'.$_REQUEST['filename']); 
