@@ -8,13 +8,27 @@ $websiteTitle="Pingstkyrkan Eskilstuna podcast";
 $otherPodcastsTitle="Andra Pingstkyrkan Eskilstuna podcast";
 $descriptionForAllFiles="Predikan från Pingstkyrkan Eskilstuna";
 $listen_InLocalLanguage="Lyssna";
+$hits_InLocalLanguage="Visningar";
 
 /* 
  * End of parameters you need to change. 
  * 
  * There should be no need to change below this line 
  */
-
+function getFileStats($files_dir,$filename){
+	$statsFile = $files_dir.$filename.'.stats';
+	$stats = 0;
+	if(file_exists($statsFile)){
+		try {
+			$stats=unserialize(file_get_contents($statsFile));
+		} catch (\Throwable $e) { // For PHP 7
+			$stats=0;
+		} catch (\Exception $e) { // For PHP 5
+			$stats=0;
+		}
+	}	
+	return $stats;
+}
 function getFullHost()
 {
     $protocole = $_SERVER['REQUEST_SCHEME'].'://';
@@ -115,7 +129,7 @@ function getFullHost()
         $title = $id3_info["comments_html"]["title"][0];		
 		$description =  $descriptionForAllFiles;
 		$image = $base_url.'/upload/'.$_GET['podcast'].'.jpg';
-		$enclosure = $base_url.'/upload/'.$_GET['podcast'].'.mp3';
+		$enclosure = $base_url.'/stats.php?filename='.$_GET['podcast'].'.mp3';
 		?>
 		<div style="border-style: groove;margin:10px;display:block">
 			<div style="display:flex">
@@ -127,7 +141,7 @@ function getFullHost()
 				<div style="flex-grow:1">
 					<div class="descriptionbox">
 						<p><strong><?=$title?></strong></p>
-						<p><?=$description?></p>
+						<p><span style="font-size:0.75em"><?=$hits_InLocalLanguage.' '.getFileStats($files_dir,$_GET['podcast'].'.mp3'). '. ' ?></span><?=$description?></p>
 					</div>	
 					<div style="">
 						<audio class="audiocontrol" style="display:inline" controls='controls'>
@@ -150,6 +164,7 @@ function getFullHost()
 		$imgObj = $node->getElementsByTagNameNS("http://www.itunes.com/dtds/podcast-1.0.dtd", "image")->item(0);
 		$image=$imgObj?$imgObj->getAttribute('href'):'';
 		$link=$node->getElementsByTagName('link')->item(0)->nodeValue;
+		$filename=explode('=',$link)[1];
 		$item = array ( 
 			'title' => $node->getElementsByTagName('title')->item(0)->nodeValue,
 			'desc' => $node->getElementsByTagName('description')->item(0)->nodeValue,
@@ -158,7 +173,7 @@ function getFullHost()
 			'enclosure' => $node->getElementsByTagName('enclosure')->item(0)->getAttribute('url'),
 			'image' => $image,
 			);
-		$feed[$link]=$item;
+		$feed[$filename]=$item;
 	}
 
 	krsort($feed);
@@ -171,7 +186,8 @@ function getFullHost()
 		$description = str_replace("\n","<br/>",$description);
 		$date = date('l F d, Y', strtotime($value['date']));
 		$image = $value['image'];
-		$enclosure = $value['enclosure'];?>
+		$enclosure = $value['enclosure'];
+		?>
 		<div style="border-style: groove;margin:10px;display:block">
 			<div style="display:flex">
 				<div class="imagebox" >
@@ -182,7 +198,7 @@ function getFullHost()
 				<div style="flex-grow:1">
 					<div class="descriptionbox">
 						<p><strong><?=$title?></strong></p>
-						<p><?=$description?></p>
+						<p><span style="font-size:0.75em"><?=$hits_InLocalLanguage.' '.getFileStats($files_dir,$key). '. ' ?></span><?=$description?></p>
 					</div>	
 					<button class="listenbutton" type="button" 
 					onclick="getElementById('abc<?=$i?>').setAttribute('src', '<?=$enclosure?>');getElementById('cba<?=$i?>').style.display = 'inline';getElementById('cba<?=$i?>').load();getElementById('cba<?=$i?>').play();this.style.display = 'none';">
