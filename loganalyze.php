@@ -76,24 +76,9 @@
 <head>
 <meta name=”viewport” content=”width=device-width, initial-scale=1″>
 <title><?=$websiteTitle?></title>
-<link rel="shortcut icon" type="image/x-icon" href="<?=$base_url?>/fav.ico" />
+<link rel="shortcut icon" type="image/x-icon" href="<?=getFullHost()?>/fav.ico" />
 <style>
-/*//////////////////////////////////////////////////////////////////
-[ FONT ]*/
 
-
-@font-face {
-  font-family: Montserrat-Regular;
-  src: url('../fonts/montserrat/Montserrat-Regular.ttf'); 
-}
-
-@font-face {
-  font-family: Montserrat-Medium;
-  src: url('../fonts/montserrat/Montserrat-Medium.ttf'); 
-}
-
-/*//////////////////////////////////////////////////////////////////
-[ RESTYLE TAG ]*/
 * {
 	margin: 0px; 
 	padding: 0px; 
@@ -191,7 +176,7 @@ iframe {
 }
 
 .wrap-table100 {
-  width: 600px;
+  width: 700px;
 }
 
 /*//////////////////////////////////////////////////////////////////
@@ -273,7 +258,7 @@ th, td {
 <div class="wrap-table100">
 <div class="table100 ver3 m-b-110">
 	<?php foreach($display as $subject) { ?>
-		<h1 style="margin-top:50px"><?=$subject[0] ?></h1>
+		<h1 style="margin-top:50px;color:#6c7ae0;"><?=$subject[0] ?></h1>
 		<table class="table100.ver1">
 		<tr class="row100 head">
 			<th>
@@ -296,7 +281,7 @@ th, td {
 		</table>
 	<?php } ?>
 	
-		<h1 style="margin-top:50px">Entire Log</h1>
+		<h1 style="margin-top:50px;color:#6c7ae0;">Entire Log</h1>
 		<table class="table100.ver1">
 		<tr class="row100 head">
 			<th>
@@ -348,5 +333,14 @@ function endsWith($haystack, $needle)
     return (substr($haystack, -$length) === $needle);
 }
 	
-
+function getFullHost()
+{
+    $protocole = $_SERVER['REQUEST_SCHEME'].'://';
+    $host = $_SERVER['HTTP_HOST'] . '/';
+    $project = explode('/', $_SERVER['REQUEST_URI']);
+    array_pop($project);
+    array_shift($project);
+    $path = implode('/', $project);
+    return $protocole . $host . $path;
+}
 ?>
