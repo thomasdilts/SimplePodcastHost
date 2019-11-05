@@ -4,6 +4,17 @@
  * Analyzes the log files found in the 'logs' directory
  *
  */	
+	$MAX_ITEMS = $_GET["max_items"];
+	$MAX_ITEMS = !$MAX_ITEMS || $MAX_ITEMS<10 ? 10:$MAX_ITEMS;
+	$address = substr($_SERVER[REQUEST_URI],0,strlen($_SERVER[REQUEST_URI])-strlen($_SERVER['QUERY_STRING'])-1);
+	
+	$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$address" . '?max_items=';
+
+	// Use parse_str() function to parse the 
+	// string passed via URL 
+	parse_str($url_components['query'], $params); 
+
+
 	$logDir=getcwd().'/logs';
 	if(!file_exists($logDir)){
 		mkdir($logDir);
@@ -65,10 +76,11 @@
 		}			
 	}
 	arsort($hitsPerDay);
+	arsort($hitsPerFile);
 	arsort($hitsPerDayPerFile);
 	arsort($hitsPerUser);
 	arsort($hitsPerReferer);
-	ksort($allLogs);
+	krsort($allLogs);
 	$display= array(array('Hits per day','Day',$hitsPerDay),array('Hits per file','File',$hitsPerFile),array('Hits per day per file','Day-File',$hitsPerDayPerFile),array('Hits per user','User IP',$hitsPerUser),array('Hits per referer','Referer',$hitsPerReferer));
 ?>	
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -256,8 +268,12 @@ th, td {
 <div class="limiter">
 <div class="container-table100">
 <div class="wrap-table100">
+
+Number of items to show<br/>
+
+<input type="text" onchange="window.location='<?=$actual_link?>'+this.value;" value="<?=$MAX_ITEMS?>"/>
 <div class="table100 ver3 m-b-110">
-	<?php foreach($display as $subject) { ?>
+	<?php foreach($display as $subject) { $rowCount=0;?>
 		<h1 style="margin-top:50px;color:#6c7ae0;"><?=$subject[0] ?></h1>
 		<table class="table100.ver1">
 		<tr class="row100 head">
@@ -268,7 +284,7 @@ th, td {
 				Hits
 			</th>
 		</tr>
-		<?php foreach($subject[2] as $key=>$value) { ?>
+		<?php foreach($subject[2] as $key=>$value) { $rowCount++; if($rowCount>$MAX_ITEMS)break;?>
 		<tr class="row100">
 			<td class="column100 column1">
 				<?=$key ?>
@@ -297,7 +313,7 @@ th, td {
 				Refering URL
 			</th>
 		</tr>
-		<?php foreach($allLogs as $key=>$value) { ?>
+		<?php $rowCount=0;foreach($allLogs as $key=>$value) { $rowCount++; if($rowCount>$MAX_ITEMS*3)break;?>
 		<tr class="row100">
 			<td class="column100 column1">
 				<?=$key ?>
