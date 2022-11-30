@@ -6,7 +6,7 @@
  */	
 	$MAX_ITEMS = $_GET["max_items"];
 	$MAX_ITEMS = !$MAX_ITEMS || $MAX_ITEMS<10 ? 10:$MAX_ITEMS;
-	$address = substr($_SERVER[REQUEST_URI],0,strlen($_SERVER[REQUEST_URI])-strlen($_SERVER['QUERY_STRING'])-1);
+	$address = substr($_SERVER['REQUEST_URI'],0,strlen($_SERVER['REQUEST_URI'])-strlen($_SERVER['QUERY_STRING'])-1);
 	
 	$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$address" . '?max_items=';
 
