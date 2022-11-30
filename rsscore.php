@@ -125,11 +125,14 @@ echo '<?xml version="1.0" encoding="utf-8" ?>';
                     getid3_lib::CopyTagsToComments($id3_info);
                     
                     $file_title = $id3_info["comments_html"]["title"][0];
-                    $file_author = array_key_exists($id3_info["comments_html"],'artist') 
-							&& count($id3_info["comments_html"]["artist"])>0 
-							&& strlen($id3_info["comments_html"]["artist"][0])>0 
-							? $id3_info["comments_html"]["artist"][0] 
-							: $mp3_default_author;
+                    $file_author=$mp3_default_author;
+                    if(@$id3_info["comments_html"]["artist"]){
+
+                        $file_author=count($id3_info["comments_html"]["artist"])>0 
+                            && strlen($id3_info["comments_html"]["artist"][0])>0 
+                            ? $id3_info["comments_html"]["artist"][0] 
+                            : $mp3_default_author;
+                    }
                     $file_duration = $id3_info["playtime_string"];
                 }
 				$allFiles[$file_url]=array('title' => $file_title,'fileUrl' => $file_url,'author' => $file_author,
@@ -162,7 +165,7 @@ echo '<?xml version="1.0" encoding="utf-8" ?>';
         </item>
         <?php
         }
-        closedir($files_dir);
+        closedir($directory);
         ?>		
     </channel>
 </rss>
